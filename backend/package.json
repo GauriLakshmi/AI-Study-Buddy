@@ -1,0 +1,20 @@
+{
+  "name": "study-buddy-backend",
+  "version": "1.0.0",
+  "description": "Backend for AI Study Buddy application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "@openrouter/ai-sdk-provider": "^3.0.0",
+    "ai": "^7.0.29",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
