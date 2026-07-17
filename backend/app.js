@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const deckRoutes = require('./routes/deckRoutes');
 const flashcardRoutes = require('./routes/flashcardRoutes');
 const researchResultRoutes = require('./routes/researchResultRoutes');
+const quizRoutes = require('./routes/quizRoutes');
 const healthRoutes = require('./routes/healthRoutes');
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/decks', deckRoutes);
 app.use('/api/flashcards', flashcardRoutes);
 app.use('/api/research-results', researchResultRoutes);
+app.use('/api/quizzes', quizRoutes);
 app.use('/health', healthRoutes);
 
 // Start server

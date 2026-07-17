@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SideNavBar from './components/SideNavBar';
 import TopNavBar from './components/TopNavBar';
 import Dashboard from './components/Dashboard';
 import ResearchAssistant from './components/ResearchAssistant';
+import QuizGenerator from './components/QuizGenerator';
 
 export default function App() {
   const [currentView, setCurrentView] = useState('dashboard');
@@ -48,6 +49,10 @@ export default function App() {
 
         {currentView === 'research' && (
           <ResearchAssistant />
+        )}
+
+        {currentView === 'quiz' && (
+          <QuizGenerator />
         )}
       </div>
     </div>

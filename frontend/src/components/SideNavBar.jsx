@@ -5,6 +5,7 @@ export default function SideNavBar({ currentView, onViewChange, isOpen, setIsOpe
     { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
     { id: 'flashcards', label: 'Flashcards', icon: 'school' },
     { id: 'research', label: 'Research AI', icon: 'psychology' },
+    { id: 'quiz', label: 'Quiz Generator', icon: 'quiz' },
   ];
 
   return (

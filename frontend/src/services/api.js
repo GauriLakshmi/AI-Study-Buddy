@@ -32,10 +32,16 @@ export const deleteResearchResult = async (id) => {
   return response.data;
 };
 
+export const generateQuiz = async ({ topic, difficulty, numQuestions }) => {
+  const response = await API.post('/quizzes/generate', { topic, difficulty, numQuestions });
+  return response.data;
+};
+
 export default {
   getDecks,
   getResearchResults,
   getResearchResult,
   runResearchPipeline,
   deleteResearchResult,
+  generateQuiz,
 };
