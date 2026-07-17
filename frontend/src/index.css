@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #0b1326;
+  --color-surface-dim: #0b1326;
+  --color-surface-bright: #31394d;
+  --color-surface-container-lowest: #060e20;
+  --color-surface-container-low: #131b2e;
+  --color-surface-container: #171f33;
+  --color-surface-container-high: #222a3d;
+  --color-surface-container-highest: #2d3449;
+  --color-on-surface: #dae2fd;
+  --color-on-surface-variant: #c7c4d7;
+  --color-inverse-surface: #dae2fd;
+  --color-inverse-on-surface: #283044;
+  --color-outline: #908fa0;
+  --color-outline-variant: #464554;
+  --color-surface-tint: #c0c1ff;
+  --color-primary: #c0c1ff;
+  --color-on-primary: #1000a9;
+  --color-primary-container: #8083ff;
+  --color-on-primary-container: #0d0096;
+  --color-inverse-primary: #494bd6;
+  --color-secondary: #b9c8de;
+  --color-on-secondary: #233143;
+  --color-secondary-container: #39485a;
+  --color-on-secondary-container: #a7b6cc;
+  --color-tertiary: #bdc2ff;
+  --color-on-tertiary: #131e8c;
+  --color-tertiary-container: #7c87f3;
+  --color-on-tertiary-container: #081486;
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+  --color-primary-fixed: #e1e0ff;
+  --color-primary-fixed-dim: #c0c1ff;
+  --color-on-primary-fixed: #07006c;
+  --color-on-primary-fixed-variant: #2f2ebe;
+  --color-secondary-fixed: #d4e4fa;
+  --color-secondary-fixed-dim: #b9c8de;
+  --color-on-secondary-fixed: #0d1c2d;
+  --color-on-secondary-fixed-variant: #39485a;
+  --color-tertiary-fixed: #e0e0ff;
+  --color-tertiary-fixed-dim: #bdc2ff;
+  --color-on-tertiary-fixed: #000767;
+  --color-on-tertiary-fixed-variant: #2f3aa3;
+  --color-background: #0b1326;
+  --color-on-background: #dae2fd;
+  --color-surface-variant: #2d3449;
+
+  /* Custom Spacing */
+  --spacing-container-padding-desktop: 40px;
+  --spacing-container-padding-mobile: 20px;
+  --spacing-gutter: 24px;
+  --spacing-stack-gap: 16px;
+
+  /* Custom Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* Custom Base / Global Styles */
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Typography styles based on DESIGN.md specs */
+.font-headline-xl {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.font-headline-lg {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.font-headline-lg-mobile {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+.font-body-lg {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+.font-body-md {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+.font-label-md {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.font-label-sm {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.text-headline-xl {
+  font-size: 48px;
+  line-height: 56px;
+}
+.text-headline-lg {
+  font-size: 32px;
+  line-height: 40px;
+}
+.text-headline-lg-mobile {
+  font-size: 24px;
+  line-height: 32px;
+}
+.text-body-lg {
+  font-size: 18px;
+  line-height: 28px;
+}
+.text-body-md {
+  font-size: 16px;
+  line-height: 24px;
+}
+.text-label-md {
+  font-size: 14px;
+  line-height: 20px;
+}
+.text-label-sm {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Elevation & Glassmorphism Styles */
+.glass-level-2 {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-card-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* Active AI glow simulation */
+.ai-glow {
+  position: relative;
+}
+.ai-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 32px 0px rgba(99, 102, 241, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.ai-glow:hover::after,
+.ai-glow.active::after {
+  opacity: 1;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(circle at 50% 50%, rgba(192, 193, 255, 0.12) 0%, transparent 70%);
+}

@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "node --watch app.js"
+    "dev": "node --watch app.js",
+    "seed": "node seed.js"
   },
   "dependencies": {
     "@openrouter/ai-sdk-provider": "^3.0.0",
