@@ -1,4 +1,6 @@
 const Flashcard = require('../models/Flashcard');
+const Deck = require('../models/Deck');
+const { runFlashcardAgent } = require('../agents/flashcardAgent');
 
 // GET /api/flashcards - Fetch flashcards, optionally filtered by deckId
 exports.getFlashcards = async (req, res) => {
@@ -40,13 +42,15 @@ exports.getFlashcardById = async (req, res) => {
   }
 };
 
-// PUT /api/flashcards/:id - Update a flashcard (question and/or answer)
+// PUT /api/flashcards/:id - Update a flashcard (question, answer, bookmarked, and/or difficulty)
 exports.updateFlashcard = async (req, res) => {
   try {
-    const { question, answer } = req.body;
+    const { question, answer, bookmarked, difficulty } = req.body;
     const updateData = {};
     if (question !== undefined) updateData.question = question;
     if (answer !== undefined) updateData.answer = answer;
+    if (bookmarked !== undefined) updateData.bookmarked = bookmarked;
+    if (difficulty !== undefined) updateData.difficulty = difficulty;
 
     const updatedFlashcard = await Flashcard.findByIdAndUpdate(
       req.params.id,
@@ -71,6 +75,60 @@ exports.deleteFlashcard = async (req, res) => {
     }
     res.status(200).json({ message: 'Flashcard deleted successfully', flashcard: deletedFlashcard });
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// POST /api/flashcards/generate - Generate flashcards for a topic and save to a deck
+exports.generateFlashcards = async (req, res) => {
+  try {
+    const { topic, userId, deckId, numCards } = req.body;
+    if (!topic || !userId) {
+      return res.status(400).json({ error: 'topic and userId are required' });
+    }
+
+    let targetDeckId = deckId;
+    let deckName = topic;
+    
+    // If deckId is not provided, create a new Deck
+    if (!targetDeckId) {
+      const newDeck = new Deck({
+        name: topic,
+        userId: userId
+      });
+      const savedDeck = await newDeck.save();
+      targetDeckId = savedDeck._id;
+      deckName = savedDeck.name;
+    } else {
+      const existingDeck = await Deck.findById(targetDeckId);
+      if (existingDeck) {
+        deckName = existingDeck.name;
+      }
+    }
+
+    const count = parseInt(numCards, 10) || 10;
+    console.log(`Generating ${count} flashcards for topic: "${topic}"...`);
+    
+    const cardsData = await runFlashcardAgent(topic, count);
+    
+    // Save generated cards to the database
+    const cardsToSave = cardsData.map(card => ({
+      question: card.question,
+      answer: card.answer,
+      deckId: targetDeckId
+    }));
+    
+    const savedCards = await Flashcard.insertMany(cardsToSave);
+
+    res.status(201).json({
+      success: true,
+      message: 'Flashcards generated successfully',
+      deckId: targetDeckId,
+      deckName: deckName,
+      flashcards: savedCards
+    });
+  } catch (error) {
+    console.error('Error generating flashcards:', error);
     res.status(500).json({ error: error.message });
   }
 };

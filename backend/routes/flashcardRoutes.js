@@ -11,4 +11,7 @@ router.get('/:id', flashcardController.getFlashcardById);
 router.put('/:id', flashcardController.updateFlashcard);
 router.delete('/:id', flashcardController.deleteFlashcard);
 
+// Route for generation
+router.post('/generate', flashcardController.generateFlashcards);
+
 module.exports = router;
