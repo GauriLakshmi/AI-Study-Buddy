@@ -253,9 +253,10 @@ export default function QuizGenerator() {
                       <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold mt-0.5">
                         {qIdx + 1}
                       </span>
-                      <h4 className="font-body-lg text-lg text-on-background font-medium flex-1">
-                        {q.question}
-                      </h4>
+                      <h4 
+                        className="font-body-lg text-lg text-on-background font-medium flex-1"
+                        dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(q.question) }}
+                      />
                     </div>
 
                     {/* Options List */}
@@ -284,7 +285,7 @@ export default function QuizGenerator() {
                             onClick={() => handleSelectOption(qIdx, option)}
                             className={`p-3.5 rounded-lg border transition-all cursor-pointer flex items-center justify-between ${optionStyle}`}
                           >
-                            <span className="text-sm">{option}</span>
+                            <span className="text-sm" dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(option) }} />
                             <div className="flex items-center">
                               {isSubmitted && isCorrectOption && (
                                 <span className="material-symbols-outlined text-green-400 text-sm">check_circle</span>
@@ -310,7 +311,7 @@ export default function QuizGenerator() {
                           <span className="material-symbols-outlined text-primary text-sm mt-0.5">info</span>
                           <div className="flex-1">
                             <strong className="text-on-background block mb-1">Explanation</strong>
-                            {q.explanation}
+                            <span dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(q.explanation) }} />
                           </div>
                         </div>
                       </div>
@@ -336,4 +337,12 @@ export default function QuizGenerator() {
       </div>
     </main>
   );
+}
+
+function parseInlineMarkdown(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code class="font-mono bg-white/5 px-1.5 py-0.5 rounded text-sm text-primary">$1</code>');
 }

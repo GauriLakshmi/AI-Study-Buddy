@@ -401,9 +401,10 @@ export default function FlashcardsDashboard({ onViewChange }) {
                   {/* Question View */}
                   {!isFlipped ? (
                     <div className="space-y-6 w-full animate-in fade-in zoom-in-95 duration-300" id="question-view">
-                      <h3 className="font-headline-lg text-headline-lg text-on-surface max-w-2xl mx-auto">
-                        {flashcards[currentIndex].question}
-                      </h3>
+                      <h3 
+                        className="font-headline-lg text-headline-lg text-on-surface max-w-2xl mx-auto"
+                        dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(flashcards[currentIndex].question) }}
+                      />
                       <div className="pt-8">
                         <button 
                           onClick={(e) => {
@@ -424,9 +425,10 @@ export default function FlashcardsDashboard({ onViewChange }) {
                       <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-md font-label-sm text-label-sm mb-4">
                         ANSWER
                       </div>
-                      <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
-                        {flashcards[currentIndex].answer}
-                      </p>
+                      <p 
+                        className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-2xl mx-auto"
+                        dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(flashcards[currentIndex].answer) }}
+                      />
                       <div className="pt-8 flex justify-center gap-4">
                         <button 
                           onClick={(e) => {
@@ -702,4 +704,12 @@ export default function FlashcardsDashboard({ onViewChange }) {
       </div>
     </main>
   );
+}
+
+function parseInlineMarkdown(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code class="font-mono bg-white/5 px-1.5 py-0.5 rounded text-sm text-primary">$1</code>');
 }

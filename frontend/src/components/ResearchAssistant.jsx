@@ -445,24 +445,31 @@ function MarkdownRenderer({ content }) {
         // Headers
         if (trimmed.startsWith('# ')) {
           return (
-            <h1 key={pIdx} className="font-headline-xl text-3xl text-on-background mt-8 mb-4 border-b border-white/10 pb-2 flex items-center space-x-2">
+            <h1 
+              key={pIdx} 
+              className="font-headline-xl text-3xl text-on-background mt-8 mb-4 border-b border-white/10 pb-2 flex items-center space-x-2"
+            >
               <span className="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
-              <span>{trimmed.substring(2)}</span>
+              <span dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(trimmed.substring(2)) }} />
             </h1>
           );
         }
         if (trimmed.startsWith('## ')) {
           return (
-            <h2 key={pIdx} className="font-headline-lg text-2xl text-on-background mt-6 mb-3">
-              {trimmed.substring(3)}
-            </h2>
+            <h2 
+              key={pIdx} 
+              className="font-headline-lg text-2xl text-on-background mt-6 mb-3"
+              dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(trimmed.substring(3)) }}
+            />
           );
         }
         if (trimmed.startsWith('### ')) {
           return (
-            <h3 key={pIdx} className="font-headline-lg-mobile text-xl text-on-background mt-4 mb-2">
-              {trimmed.substring(4)}
-            </h3>
+            <h3 
+              key={pIdx} 
+              className="font-headline-lg-mobile text-xl text-on-background mt-4 mb-2"
+              dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(trimmed.substring(4)) }}
+            />
           );
         }
 
