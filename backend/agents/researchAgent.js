@@ -4,6 +4,7 @@ const {models} = require('../config/models')
 async function runResearchAgent(topic) {
   const result = await generateText({
     model: models.research,
+    maxTokens: 2500,
     system: `
 You are a research agent.
 Your job is to research the user's topic thoroughly.

@@ -4,6 +4,7 @@ const { models } = require('../config/models');
 async function runWriterAgent(topic, researchNotes) {
   const result = await generateText({
     model: models.writer,
+    maxTokens: 2500,
     system: `
 You are a writer agent.
 

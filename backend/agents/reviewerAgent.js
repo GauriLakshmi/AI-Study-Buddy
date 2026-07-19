@@ -4,6 +4,7 @@ const { models } = require('../config/models');
 async function runReviewerAgent(topic, researchNotes, draft) {
   const review = await generateText({
     model: models.reviewer,
+    maxTokens: 2500,
     system: `
 You are a reviewer agent.
 
